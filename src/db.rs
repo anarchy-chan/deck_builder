@@ -1,5 +1,3 @@
-//use serde::Deserialize;
-
 use std::error::Error;
 
 mod urls {
