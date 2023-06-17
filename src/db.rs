@@ -7,7 +7,8 @@ mod urls {
 
 pub fn update(db: &rusqlite::Connection) -> Result<(), Box<dyn Error>> {
     let json_string = reqwest::blocking::get(urls::API_CARDSETS)?
-        .text()?.replace('\'', "''");
+        .text()?
+        .replace('\'', "''");
 
     db.execute("DROP TABLE IF EXISTS sets", ())?;
     db.execute(
@@ -39,14 +40,14 @@ pub fn update(db: &rusqlite::Connection) -> Result<(), Box<dyn Error>> {
     db.execute(
         &format!(
             "INSERT INTO sets SELECT {} FROM json_each('{}')",
-            sql_columns,
-            json_string,
+            sql_columns, json_string,
         ),
         (),
     )?;
 
     let json_string = reqwest::blocking::get(urls::API_CARDINFO)?
-        .text()?.replace('\'', "''");
+        .text()?
+        .replace('\'', "''");
 
     db.execute("DROP TABLE IF EXISTS cards", ())?;
     db.execute(
@@ -94,8 +95,7 @@ pub fn update(db: &rusqlite::Connection) -> Result<(), Box<dyn Error>> {
     db.execute(
         &format!(
             "INSERT INTO cards SELECT {} FROM json_each('{}', '$.data')",
-            sql_columns,
-            json_string,
+            sql_columns, json_string,
         ),
         (),
     )?;

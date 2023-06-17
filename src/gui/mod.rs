@@ -19,7 +19,7 @@ impl SimpleComponent for App {
         }
     }
 
-    fn init (
+    fn init(
         params: Self::Init,
         root: &Self::Root,
         sender: ComponentSender<Self>,
