@@ -9,7 +9,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     dirs::init()?;
 
     let db = rusqlite::Connection::open(dirs::DB_FILE.as_path())?;
-    deck_editor::db::update(&db)?;
 
     let main_app = relm4::main_application();
     main_app.set_application_id(Some(app_id::DOT_SEPARATED.as_str()));
